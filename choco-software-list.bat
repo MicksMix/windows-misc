@@ -1,6 +1,6 @@
-@powershell -NoProfile -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))" && SET "PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin"
+rem @powershell -NoProfile -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))" && SET "PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin"
 refreshenv
-# system
+REM # system
 choco install -y 7zip.install
 choco install -y notepadplusplus.install
 choco install -y firefox
@@ -23,7 +23,7 @@ choco install -y conemu
 choco install -y nirlauncher
 choco install -y vlc
 choco install -y greenshot
-# dev related
+REM # dev related
 choco install -y git
 choco install -y winmerge
 choco install -y agentransack
@@ -38,7 +38,7 @@ choco install -y pywin32
 choco install -y visualstudiocode
 choco install -y visualstudio2015community
 choco install -y everything
-# other
+REM # other
 choco install -y jre8
 choco install -y burp-suite-free-edition
 choco install -y fiddler4
