@@ -30,6 +30,7 @@ choco install -y openssh
 choco install -y heidisql
 choco install -y windbg
 choco install -y golang
+choco install -y lazarus
 choco install -y strawberryperl
 choco install -y python2
 choco install -y vcpython27
