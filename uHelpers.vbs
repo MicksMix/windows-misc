@@ -109,6 +109,24 @@ Sub LogToEventlog(sMsg, sSource)
 
 End Sub
 
+Sub FindAndDeleteOldFilesByExtension(strPath, strExt, iDays)
+    ' Call FindAndDeleteOldFiles("c:\temp", "sql", 30)
+    Dim objFolder, objSubFolder, objFile
+    Set objFSO = CreateObject("Scripting.FileSystemObject")
+    Set objFolder = objFSO.getFolder(strPath)
+    
+	For Each objFile In objFolder.files
+		'If dateDiff("d",objFile.dateLastModified,Now) > 30 Then objFile.Delete
+        If dateDiff("d",objFile.dateLastModified,Now) > iDays And right((objFile.Path),4) = "." & strExt Then objFile.Delete
+	Next
+	For Each objSubFolder In objFolder.SubFolders
+		Search(objSubFolder)
+	Next
+	For Each objSubFolder In objFolder.SubFolders
+		If objSubFolder.Files.Count = 0 Then ObjSubFolder.Delete
+	Next
+End Sub
+
 Function FirstVersionSupOrEqualToSecondVersion(strFirstVersion, strSecondVersion)
 	Dim arrFirstVersion,  arrSecondVersion, i, iStop, iMax
 	Dim iFirstArraySize, iSecondArraySize
