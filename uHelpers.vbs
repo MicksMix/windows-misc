@@ -111,8 +111,9 @@ End Sub
 
 Sub FindAndDeleteOldFilesByExtension(strPath, strExt, iDays)
     ' Call FindAndDeleteOldFiles("c:\temp", "sql", 30)
+    On Error Resume Next
     Dim objFolder, objSubFolder, objFile
-    Set objFSO = CreateObject("Scripting.FileSystemObject")
+    Dim objFSO : Set objFSO = CreateObject("Scripting.FileSystemObject")
     Set objFolder = objFSO.getFolder(strPath)
     
 	For Each objFile In objFolder.files
@@ -120,8 +121,9 @@ Sub FindAndDeleteOldFilesByExtension(strPath, strExt, iDays)
         If dateDiff("d",objFile.dateLastModified,Now) > iDays And right((objFile.Path),4) = "." & strExt Then objFile.Delete
 	Next
 	For Each objSubFolder In objFolder.SubFolders
-		Search(objSubFolder)
+		FindAndDeleteOldFilesByExtension(objSubFolder.path, strExt, iDays)
 	Next
+    
 	For Each objSubFolder In objFolder.SubFolders
 		If objSubFolder.Files.Count = 0 Then ObjSubFolder.Delete
 	Next
