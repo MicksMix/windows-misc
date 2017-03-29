@@ -1,5 +1,5 @@
 '
-' Basic helper methods I've often used as part of other VBScripts
+' Basic helper functions I've often used as part of other VBScripts
 '
 
 Function GetEnvVariable(sEnv)
@@ -8,6 +8,28 @@ Function GetEnvVariable(sEnv)
 	sValue = objShell.ExpandEnvironmentStrings("%" & sEnv & "%")
 
 	GetEnvVariable = sValue
+End Function
+
+Function GetSafeTimestamp
+    Dim strSafeDate
+    Dim strSafeTime
+    Dim strDateTime
+    
+    strSafeDate = DatePart("yyyy",Date) _ 
+        & "-" _
+        & Right("0" & DatePart("m",Date), 2) _
+        & "-" _
+        & Right("0" & DatePart("d",Date), 2) _
+        
+    strSafeTime = Right("0" & Hour(Now), 2) _
+        & "-" _
+        & Right("0" & Minute(Now), 2) _
+        & "-" _
+        & Right("0" & Second(Now), 2)
+        
+    strDateTime = strSafeDate & "_" & strSafeTime
+    
+    GetSafeTimestamp = strDateTime
 End Function
 
 Sub SearchAndBackupAndReplace(sNewFile, sExtension, sName)
@@ -120,6 +142,7 @@ Sub FindAndDeleteOldFilesByExtension(strPath, strExt, iDays)
 		'If dateDiff("d",objFile.dateLastModified,Now) > 30 Then objFile.Delete
         If dateDiff("d",objFile.dateLastModified,Now) > iDays And right((objFile.Path),4) = "." & strExt Then objFile.Delete
 	Next
+    
 	For Each objSubFolder In objFolder.SubFolders
 		FindAndDeleteOldFilesByExtension(objSubFolder.path, strExt, iDays)
 	Next
@@ -332,3 +355,91 @@ Function IsBlank(Value)
 		IsBlank = False
 	End If
 End Function
+
+Function SpecialTrim(ByVal sString)
+	On Error Resume Next
+	If VarType(sString) <> vbString Then Exit Function
+	
+	Dim objRegExp : Set objRegExp = New RegExp
+	objRegExp.Pattern = "^\s+|\s+$|\r\n"
+	objRegExp.Ignorecase = True
+	objRegExp.Global = True
+	
+	SpecialTrim = objRegExp.Replace(sString, "")
+End Function
+
+Function uniqFE(fex)
+    'Get unique lines from Array
+	On Error Resume Next
+	Dim dicTemp : Set dicTemp = CreateObject("Scripting.Dictionary")
+	Dim xItem
+	For Each xItem In fex
+		dicTemp(xItem) = 0
+	Next
+	uniqFE = dicTemp.Keys()
+End Function
+
+Function Get32ProgFilesPath()
+    Dim sProgramFiles32
+    Dim sProgramFiles64
+    Dim sProgFilesDir
+    sProgramFiles32 = RemoveTrailingPathDelimiter(GetEnvVariable("ProgramFiles(x86)")) & "\"
+    sProgramFiles64 = RemoveTrailingPathDelimiter(GetEnvVariable("ProgramFiles")) & "\"
+    
+    sProgFilesDir = sProgramFiles64 'default
+    If MyDirectoryExists(sProgramFiles32) Then
+        sProgramFiles32 = sProgramFiles32
+    Else
+        sProgFilesDir = sProgramFiles64
+    End If
+
+    Get32ProgFiles = sProgFilesDir
+End Function
+
+Function MyDirectoryExists(sDirFullName)
+	On Error Resume Next
+	Dim bResult
+	bResult = False 'default
+    Dim objFSO : Set objFSO = CreateObject("Scripting.FileSystemObject")	
+    
+	If objFSO.FolderExists(sDirFullName) Then
+        bResult = True
+	End If
+	
+	MyDirectoryExists = bResult
+End Function
+
+Function MyFileExists(sFileFullName)
+	On Error Resume Next
+	Dim bResult
+	bResult = False 'default
+    Dim objFSO : Set objFSO = CreateObject("Scripting.FileSystemObject")	
+    
+	If objFSO.FileExists(sFileFullName) Then
+        bResult = True
+	End If
+	
+	MyFileExists = bResult
+End Function
+
+Sub ShowMessagePopup(sMsg, iTimeout)
+	On Error Resume Next
+	Dim objShell : Set objShell = WScript.CreateObject("WScript.Shell")	
+	Const wshOk = 0
+	REM Const wshYes = 6
+	REM Const wshNo = 7
+	REM Const wshYesNoDialog = 4
+	REM Const wshQuestionMark = 32
+
+	intReturn = objShell.Popup(sMsg, _
+		iTimeout, "Title Bar", wshOk)
+
+	REM If intReturn = wshYes Then
+		REM Wscript.Echo "You clicked the Yes button."
+	REM ElseIf intReturn = wshNo Then
+		REM Wscript.Echo "You clicked the No button."
+	REM Else
+		REM Wscript.Echo "The popup timed out."
+	REM End If	
+	
+End Sub
