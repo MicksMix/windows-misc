@@ -6,7 +6,6 @@ choco install -y firefox
 choco install -y adblockplus-firefox
 choco install -y sumatrapdf
 choco install -y ag
-REM choco install -y classic-shell
 choco install -y hxd
 choco install -y jq
 choco install -y ilspy
@@ -23,6 +22,7 @@ choco install -y nirlauncher
 choco install -y vlc
 choco install -y greenshot
 REM # dev related
+choco install -y powershell
 choco install -y git
 choco install -y winmerge
 choco install -y agentransack
@@ -39,6 +39,9 @@ choco install -y visualstudiocode
 choco install -y visualstudio2015community
 choco install -y everything
 REM # other
+choco install -y vcredist2013
+choco install -y vcredist2010
+choco install -y vcredist2008
 choco install -y jre8
 choco install -y burp-suite-free-edition
 choco install -y fiddler4
