@@ -6,7 +6,7 @@ choco install -y firefox
 choco install -y adblockplus-firefox
 choco install -y sumatrapdf
 choco install -y ag
-choco install -y classic-shell
+REM choco install -y classic-shell
 choco install -y hxd
 choco install -y jq
 choco install -y ilspy
