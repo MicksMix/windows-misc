@@ -36,12 +36,19 @@ choco install -y python2
 choco install -y vcpython27
 choco install -y pywin32
 choco install -y visualstudiocode
-choco install -y visualstudio2015community
+choco install -y visualstudio2017community
+choco install -y azure-cli
+choco install -y windowsazurepowershell 
+choco install -y awscli
+choco install -y awstools.powershell
+choco install -y vagrant
 choco install -y everything
 REM # other
+choco install -y vcredist2015 
 choco install -y vcredist2013
 choco install -y vcredist2010
 choco install -y vcredist2008
 choco install -y jre8
 choco install -y burp-suite-free-edition
 choco install -y fiddler4
+choco install -y postman 
