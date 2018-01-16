@@ -1,4 +1,5 @@
 @powershell -NoProfile -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))" && SET "PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin"
+@powershell -NoProfile -ExecutionPolicy Bypass -Command "Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux -NoRestart"
 REM # system
 choco install -y 7zip.install
 choco install -y notepadplusplus.install
@@ -20,13 +21,15 @@ choco install -y putty
 choco install -y conemu
 choco install -y nirlauncher
 choco install -y vlc
-choco install -y greenshot
+REM choco install -y greenshot
 REM # dev related
 choco install -y powershell
 choco install -y git
 choco install -y winmerge
-choco install -y agentransack
+REM choco install -y agentransack
 choco install -y openssh
+choco install -y bitnami-xampp
+choco install -y apimonitor
 choco install -y heidisql
 choco install -y windbg
 choco install -y golang
@@ -41,7 +44,7 @@ choco install -y azure-cli
 choco install -y windowsazurepowershell 
 choco install -y awscli
 choco install -y awstools.powershell
-choco install -y vagrant
+REM choco install -y vagrant
 choco install -y everything
 REM # other
 choco install -y vcredist2015 
@@ -51,4 +54,5 @@ choco install -y vcredist2008
 choco install -y jre8
 choco install -y burp-suite-free-edition
 choco install -y fiddler4
-choco install -y postman 
+choco install -y postman
+psshutdown -accepteula -f -r -t 60
