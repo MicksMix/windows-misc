@@ -26,6 +26,7 @@ REM # dev related
 choco install -y powershell
 choco install -y git
 choco install -y winmerge
+choco install -y x64dbg.portable
 REM choco install -y agentransack
 choco install -y openssh
 choco install -y bitnami-xampp
@@ -40,8 +41,8 @@ choco install -y vcpython27
 choco install -y pywin32
 choco install -y visualstudiocode
 choco install -y visualstudio2017community
-choco install -y azure-cli
-choco install -y windowsazurepowershell 
+REM choco install -y azure-cli
+REM choco install -y windowsazurepowershell 
 choco install -y awscli
 choco install -y awstools.powershell
 REM choco install -y vagrant
