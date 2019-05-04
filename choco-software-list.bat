@@ -73,4 +73,5 @@ choco install -y jre8
 choco install -y burp-suite-free-edition
 choco install -y fiddler4
 choco install -y postman
+choco install -y paint.net
 psshutdown -accepteula -f -r -t 60
